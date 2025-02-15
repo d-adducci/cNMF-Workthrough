@@ -1,8 +1,6 @@
 # cNMF-Workthrough
 
-### After starting up environment can navigate to the appropriate working directory by first backing out of the initial directory twice:  <br/> cd .. <br/> cd .. <br/>
-Can then go to the appropriate working directory with the following code: <br/>
-cd ./mnt/c/Programming_Stuff/cNMF-Workthrough ### 
+### After starting up environment can navigate to the appropriate working directory by first backing out of the initial directory twice:  <br/> cd .. <br/> cd .. <br/> Can then go to the appropriate working directory with the following code: <br/> cd ./mnt/c/Programming_Stuff/cNMF-Workthrough ### 
 
 
 Packages installed in Mamba environment.
