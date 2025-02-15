@@ -1,5 +1,10 @@
 # cNMF-Workthrough
 
+### After starting up environment can navigate to the appropriate working directory by first backing out of the initial directory twice: \n cd .. \n cd .. \n
+Can then go to the appropriate working directory with the following code: \n
+cd ./mnt/c/Programming_Stuff/cNMF-Workthrough ### 
+
+
 Packages installed in Mamba environment.
 
 Python: 
