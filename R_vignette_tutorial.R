@@ -10,11 +10,14 @@ library(data.table) # Version 1.16.4
 library(Matrix) # Version 1.7.2
 library(Seurat) # Version 5.1.0
 
-# Where raw data is stored
-data_dir <- "/RawData/"
+# Where zipped data file is stored
+temp_dir <- "/TempData/"
+
+# Where unzipped data will be stored 
+raw_dir <- "/RawData/"
 
 # Where the tar.gz file is located
-file_path <- paste0(data_dir,"pbmc_unsorted_3k_filtered_feature_bc_matrix.tar.gz")
+file_path <- paste0(temp_dir,"pbmc_unsorted_3k_filtered_feature_bc_matrix.tar.gz")
 
 #==============================================================================#
 # Data Setup
@@ -25,12 +28,13 @@ file_path <- paste0(data_dir,"pbmc_unsorted_3k_filtered_feature_bc_matrix.tar.gz
 
 # Extracting tar.gz file
 extract_command <- sprintf("tar -xzf %s -C %s", shQuote(file_path), 
-                           shQuote(data_dir))
+                           shQuote(raw_dir))
 system(extract_command) 
 
 # Removing the zip file after extracting
-rm_command <- sprintf("rm %s", file_path)
-system(rm_command)
+# Do not need this for the way I did it
+#rm_command <- sprintf("rm %s", file_path)
+#system(rm_command)
 
 # Storing the data locally
 system("ls ./RawData/pbmc_unsorted_3k_filtered_feature_bc_matrices/hg19",
