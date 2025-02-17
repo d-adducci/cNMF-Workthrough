@@ -14,7 +14,7 @@ library(Seurat) # Version 5.1.0
 data_dir <- "/RawData/"
 
 # Where the tar.gz file is located
-file_path <- file.path(data_dir,"pbmc_unsorted_3k_filtered_feature_bc_matrix.tar")
+file_path <- paste0(data_dir,"pbmc_unsorted_3k_filtered_feature_bc_matrix.tar.gz")
 
 #==============================================================================#
 # Data Setup
