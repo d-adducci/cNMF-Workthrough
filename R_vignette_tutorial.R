@@ -227,8 +227,89 @@ write.xlsx(x=top_colnames,file="./ProcessedData/top_20_spectra_scores.xlsx")
 
 
 #==============================================================================#
-# Running the data set using a Seurat anlaysis
+# Running the data set using a Seurat analysis
 #==============================================================================#
+
+library(data.table) # Version 1.16.4
+library(Matrix) # Version 1.7.2
+library(Seurat) # Version 5.1.0
+library(tidyverse) # Version 2.0.0
+library(openxlsx) # Version 4.2.8
+
+# Where data is stored
+data_dir <- "./ProcessedData/"
+
+# Where the filtered data will be stored 
+filtered_dir <- "./ProcessedData/filtered/"
+
+plots_dir <- "./Plots/"
+
+# Name of the run being performed
+runname <- "example_cNMF"
+
+#------------------------------------------------------------------------------#
+# Saving Seurat object 
+#------------------------------------------------------------------------------#
+
+# I'll rerun the Seurat analysis to get more details. I'll keep the same
+# filtering thresholds with the addition of a > 5% MT RNA cutoff
+
+# Adding in the percent mitochondrial RNA
+pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
+# Removing cells with 5% or more MT RNA
+pbmc <- subset(pbmc, subset = percent.mt < 5)
+
+# Saving the results for loading later
+#saveRDS(pbmc,"./ProcessedData/pbmc_seurat.RDS")
+
+# Loading in Seurat object
+pbmc <- readRDS("./ProcessedData/pbmc_seurat.RDS")
+
+#------------------------------------------------------------------------------#
+# Making initial Seurat plots 
+#------------------------------------------------------------------------------#
+
+# Loading in Seurat object
+pbmc <- readRDS("./ProcessedData/pbmc_seurat.RDS")
+
+# Making violin plots to check quality control metrics across all cells 
+initial_qc <- VlnPlot(pbmc, features = c("nFeature_RNA","nCount_RNA","percent.mt"),ncol=3) 
+
+# Saving plot
+pdf(file = paste0(plots_dir,"all_cell_Violin.pdf"))
+print(initial_qc)
+dev.off() 
+
+--------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------#
+# Running through standard Seurat workflow
+#------------------------------------------------------------------------------#
+
+# Running the standard Seurat workflow as described on the satijalab website.
+# Normalization method used is LogNormalize, variable features use the vst 
+# method, percent mitochondria is regressed out, PCA reduction is used,
+pbmc <- NormalizeData(object = pbmc, normalization.method = "LogNormalize",
+                      scale.factor = 10000) %>% 
+  FindVariableFeatures(selection.method = "vst") %>%
+  ScaleData(vars.to.regress = "percent.mt") %>%
+  RunPCA() %>%
+  FindNeighbors(dims = 1:30)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
