@@ -226,5 +226,12 @@ top_colnames <- as.data.frame(top_colnames)
 write.xlsx(x=top_colnames,file="./ProcessedData/top_20_spectra_scores.xlsx")
 
 
+#==============================================================================#
+# Running the data set using a Seurat anlaysis
+#==============================================================================#
+
+
+
+
 
 
